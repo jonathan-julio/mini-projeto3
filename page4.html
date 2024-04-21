@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="css/style4.css">
+</head>
+<body>
+  <div class="expanded">
+    <div class="containerExpanded">
+      <div class="header">
+          <button class="close" onclick="closeScreen()">X</button>
+      </div>
+      <table>
+          <thead>
+              <tr>
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Comentário</th>
+                  <th>Prioridade</th>
+                  <th>Notificação</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr >
+                  <td id="data2">dd/mm/yyyy</td>
+                  <td id="descricao2">Descrição</td>
+                  <td id="comentario2">Comentario </td>
+                  <td id="prioridade2">Alta</td>
+                  <td id="notificacao2">Sim</td>
+              </tr>
+              <!-- Adicione mais linhas conforme necessário -->
+          </tbody>
+      </table>
+      <div class="buttons">
+          <button onclick="edit()">Editar</button>
+          <button onclick="remove()">Excluir</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    
+    <h1>Lista de Tarefas</h1>
+    <form id="formTarefa">
+      <div>
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" required>
+      </div>
+      <div>
+        <label for="data">Data:</label>
+        <input type="date" id="data" required>
+      </div>
+      <div>
+        <label for="comentario">Comentário:</label>
+        <input type="text" id="comentario" required>
+      </div>
+      <div>
+        <label for="prioridade">Prioridade:</label>
+        <select id="prioridade" required>
+          <option value="alta">Alta</option>
+          <option value="media">Média</option>
+          <option value="baixa">Baixa</option>
+        </select>
+      </div>
+      <div>
+        <label for="notificacao">Notificação:</label>
+        <select id="notificacao" required>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+      </div>
+      <button type="submit">Adicionar Tarefa</button>
+      <button type="button" id="limparCampos">Limpar Campos</button>
+    </form>
+    <label id="ordenacao" class="ordenacao" for="ordenacao">Ordenar por:
+        <select id="ordem" onchange="ordenarTarefas()" style="width: 150px;">
+            <option value="dataMaior">Maior data </option>
+            <option value="dataMenor">Menor data</option>
+            <option value="prioridade">Prioridade</option>
+            <option value="descricao">A - Z</option>
+        </select></label>
+    <table id="listaTarefas">
+      
+    </table>
+    
+
+    </div>
+  </div>
+
+  <script src="js/script4.js"></script>
+</body>
+</html>
