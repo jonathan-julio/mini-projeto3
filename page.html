@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
-  <link rel="stylesheet" href="css/style4.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="expanded">
-    <div class="containerExpanded">
       <div class="header">
           <button class="close" onclick="closeScreen()">X</button>
       </div>
-      <table>
+      <table class="horizontal-table">
           <thead>
               <tr>
                   <th>Data</th>
@@ -24,21 +23,20 @@
           </thead>
           <tbody>
               <tr >
-                  <td id="data2">dd/mm/yyyy</td>
-                  <td id="descricao2">Descrição</td>
-                  <td id="comentario2">Comentario </td>
-                  <td id="prioridade2">Alta</td>
-                  <td id="notificacao2">Sim</td>
+                  <td id="dataExpanded">dd/mm/yyyy</td>
+                  <td id="descricaoExpanded">Descrição</td>
+                  <td id="comentarioExpanded">Comentario </td>
+                  <td id="prioridadeExpanded">Alta</td>
+                  <td id="notificacaoExpanded">Sim</td>
               </tr>
               <!-- Adicione mais linhas conforme necessário -->
           </tbody>
       </table>
       <div class="buttons">
-          <button onclick="edit()">Editar</button>
-          <button onclick="remove()">Excluir</button>
+          <button type="submit"onclick="edit()">Editar</button>
+          <button type="button" onclick="remove()">Excluir</button>
       </div>
     </div>
-  </div>
   <div class="container">
     
     <h1>Lista de Tarefas</h1>
@@ -58,20 +56,20 @@
       <div>
         <label for="prioridade">Prioridade:</label>
         <select id="prioridade" required>
-          <option value="alta">Alta</option>
-          <option value="media">Média</option>
-          <option value="baixa">Baixa</option>
+          <option value="Alta">Alta</option>
+          <option value="Média">Média</option>
+          <option value="Baixa">Baixa</option>
         </select>
       </div>
       <div>
         <label for="notificacao">Notificação:</label>
         <select id="notificacao" required>
-          <option value="sim">Sim</option>
-          <option value="nao">Não</option>
+          <option value="Sim">Sim</option>
+          <option value="Não">Não</option>
         </select>
       </div>
       <button type="submit">Adicionar Tarefa</button>
-      <button type="button" id="limparCampos">Limpar Campos</button>
+      <button type="button" id="limparCampos" onclick="resetForm()">Limpar Campos</button>
     </form>
     <label id="ordenacao" class="ordenacao" for="ordenacao">Ordenar por:
         <select id="ordem" onchange="ordenarTarefas()" style="width: 150px;">
@@ -87,7 +85,8 @@
 
     </div>
   </div>
+  
 
-  <script src="js/script4.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

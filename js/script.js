@@ -10,9 +10,9 @@ class Tarefa {
 }
 
 const prioridadesMap = {
-    "alta": 3,
-    "media": 2,
-    "baixa": 1
+    "Alta": 3,
+    "Média": 2,
+    "Baixa": 1
 };
 var taskSelectId = 0;
 const listaDeTarefas = [];
@@ -40,6 +40,7 @@ formTarefa.addEventListener('submit', function (event) {
     formTarefa.reset();
     setDataInicial();
 });
+
 
 function gerarIdTarefa() {
     // Gera um ID pseudoaleatório usando Math.random() e Date.now()
@@ -77,41 +78,59 @@ function findIndexById(id) {
             return i;
         }
     }
-    return -1; // Retorna -1 se o ID não for encontrado na lista
+    return -1; 
+}
+
+function resetForm(){
+    formTarefa.reset();
+    setDataInicial();
 }
 
 
 
 function edit() {
     var buttons = document.querySelector('.buttons');
-    buttons.innerHTML = '<button onclick="salvar()">Salvar</button><button onclick="cancelar()">Cancelar</button>';
+    buttons.innerHTML = '<button type="submit" onclick="salvar()">Salvar</button><button type="cancel" onclick="cancelar()">Cancelar</button>';
 
-    var data = document.getElementById('data2');
-    var descricao = document.getElementById('descricao2');
-    var comentario = document.getElementById('comentario2');
-    var prioridade = document.getElementById('prioridade2');
-    var notificacao = document.getElementById('notificacao2');
+    var data = document.getElementById('dataExpanded');
+    var descricao = document.getElementById('descricaoExpanded');
+    var comentario = document.getElementById('comentarioExpanded');
+    var prioridade = document.getElementById('prioridadeExpanded');
+    var notificacao = document.getElementById('notificacaoExpanded');
+    var selectPrioridade = prioridade.innerHTML;
+    var selectNotificacao = notificacao.innerHTML;
 
     data.innerHTML = '<input type="date" id="editData" value="' + converterDataParaFormatoISO(data.innerHTML) + '">';
     descricao.innerHTML = '<input type="text" id="editDescricao" value="' + descricao.innerHTML + '">';
     comentario.innerHTML = '<input type="text" id="editComentario" value="' + comentario.innerHTML + '">';
-    prioridade.innerHTML = '<input type="text" id="editPrioridade" value="' + prioridade.innerHTML + '">';
-    notificacao.innerHTML = '<input type="text" id="editNotificacao" value="' + notificacao.innerHTML + '">';
+    prioridade.innerHTML = '<select id="editPrioridade" required><option value="Alta" selected>Alta</option><option value="Média">Média</option><option value="Baixa">Baixa</option></select>';
+    notificacao.innerHTML = '<select id="editNotificacao" required> <option value="Sim">Sim</option> <option value="Não">Não</option></select>';
+    
+    setSelects(selectNotificacao,selectPrioridade)
 }
+
+function setSelects(notificacao,prioridade){
+    var selectNotificacao = document.getElementById("editNotificacao");
+    selectNotificacao.value = notificacao;
+    var selectPrioridade = document.getElementById("editPrioridade");
+    selectPrioridade.value = prioridade;
+    console.log(prioridade)
+}
+
 
 
 function expandir(id){
     var index = findIndexById(id)
 
-    var data = document.getElementById('data2');
+    var data = document.getElementById('dataExpanded');
     data.textContent = formataData(listaDeTarefas[index].data);
-    var descricao = document.getElementById('descricao2');
+    var descricao = document.getElementById('descricaoExpanded');
     descricao.textContent = listaDeTarefas[index].descricao;
-    var comentario = document.getElementById('comentario2');
+    var comentario = document.getElementById('comentarioExpanded');
     comentario.textContent = listaDeTarefas[index].comentario;
-    var prioridade = document.getElementById('prioridade2');
+    var prioridade = document.getElementById('prioridadeExpanded');
     prioridade.textContent = listaDeTarefas[index].prioridade;
-    var notificacao = document.getElementById('notificacao2');
+    var notificacao = document.getElementById('notificacaoExpanded');
     notificacao.textContent = listaDeTarefas[index].notificacao;
 
     expandedDiv.style.display = 'flex';
@@ -127,7 +146,7 @@ function closeScreen() {
 
 function salvar() {
     var buttons = document.querySelector('.buttons');
-    buttons.innerHTML = '<button onclick="edit()">Editar</button><button onclick="remove()">Excluir</button>';
+    buttons.innerHTML = '<button type="submit" onclick="edit()">Editar</button><button type="button" onclick="remove()">Excluir</button>';
 
     var index = findIndexById(taskSelectId);
     if (index === -1) {
@@ -135,11 +154,11 @@ function salvar() {
         return;
     }
 
-    var dataInput = document.getElementById('data2').querySelector('input').value;
-    var descricaoInput = document.getElementById('descricao2').querySelector('input').value;
-    var comentarioInput = document.getElementById('comentario2').querySelector('input').value;
-    var prioridadeInput = document.getElementById('prioridade2').querySelector('input').value;
-    var notificacaoInput = document.getElementById('notificacao2').querySelector('input').value;
+    var dataInput = document.getElementById('dataExpanded').querySelector('input').value;
+    var descricaoInput = document.getElementById('descricaoExpanded').querySelector('input').value;
+    var comentarioInput = document.getElementById('comentarioExpanded').querySelector('input').value;
+    var prioridadeInput = document.getElementById('prioridadeExpanded').querySelector('select').value;
+    var notificacaoInput = document.getElementById('notificacaoExpanded').querySelector('select').value;
 
     listaDeTarefas[index].data = dataInput; 
     listaDeTarefas[index].descricao = descricaoInput;
@@ -152,11 +171,11 @@ function salvar() {
 }
 
 function atualizarCamposHTML(index) {
-    var dataElement = document.getElementById('data2');
-    var descricaoElement = document.getElementById('descricao2');
-    var comentarioElement = document.getElementById('comentario2');
-    var prioridadeElement = document.getElementById('prioridade2');
-    var notificacaoElement = document.getElementById('notificacao2');
+    var dataElement = document.getElementById('dataExpanded');
+    var descricaoElement = document.getElementById('descricaoExpanded');
+    var comentarioElement = document.getElementById('comentarioExpanded');
+    var prioridadeElement = document.getElementById('prioridadeExpanded');
+    var notificacaoElement = document.getElementById('notificacaoExpanded');
 
     dataElement.textContent = formataData(listaDeTarefas[index].data);
     descricaoElement.textContent = listaDeTarefas[index].descricao;
@@ -169,21 +188,21 @@ function cancelar(){
     
     var index = findIndexById(taskSelectId)
 
-    var data = document.getElementById('data2');
-    var descricao = document.getElementById('descricao2');
-    var comentario = document.getElementById('comentario2');
-    var prioridade = document.getElementById('prioridade2');
-    var notificacao = document.getElementById('notificacao2');
+    var data = document.getElementById('dataExpanded');
+    var descricao = document.getElementById('descricaoExpanded');
+    var comentario = document.getElementById('comentarioExpanded');
+    var prioridade = document.getElementById('prioridadeExpanded');
+    var notificacao = document.getElementById('notificacaoExpanded');
     
     // Restaurar os valores originais dos campos de texto
     data.innerHTML = formataData(listaDeTarefas[index].data);
     descricao.innerHTML = listaDeTarefas[index].descricao;
     comentario.innerHTML = listaDeTarefas[index].comentario;
     prioridade.innerHTML = listaDeTarefas[index].prioridade;
-    notificacao.innerHTML = listaDeTarefas[index].comentario;
+    notificacao.innerHTML = listaDeTarefas[index].notificacao;
 
     var buttons = document.querySelector('.buttons');
-    buttons.innerHTML = '<button onclick="edit()">Editar</button><button onclick="remove()">Excluir</button>';
+    buttons.innerHTML = '<button type="submit" onclick="edit()">Editar</button><button type="button" onclick="remove()">Excluir</button>';
     refreshList();
 }
 
@@ -209,7 +228,7 @@ function refreshList(){
                 <td id="descricao">${element.descricao}</td>
                 <td id="prioridade">${element.prioridade}</td>
                 <td>
-                    <button id="button" onclick="expandir(${element.id})" class="expandir">Expandir</button>
+                    <button type="submit" id="button" onclick="expandir(${element.id})" class="expandir">Expandir</button>
                 </td>
             `;
             novaLinha.setAttribute('id', `${element.id}`);
@@ -244,6 +263,8 @@ function listIsEmpty(){
         criterio.style.display = 'none';
     }
 }
+
+
 
 function ordenarTarefas() {
     const criterio = document.getElementById("ordem").value;
